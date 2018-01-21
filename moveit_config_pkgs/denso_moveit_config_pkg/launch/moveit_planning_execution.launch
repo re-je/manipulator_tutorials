@@ -45,7 +45,7 @@
     </include>
   </group>  
 
-  <include file="$(find denso_robot_moveit_config)/launch/move_group.launch">
+  <include file="$(find denso_moveit_config_pkg)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
     <arg name="robot_name" value="$(arg robot_name)" />
   </include>
