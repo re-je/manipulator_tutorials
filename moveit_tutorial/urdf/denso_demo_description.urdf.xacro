@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="vs087" >
+  <xacro:include filename="$(find denso_robot_descriptions)/vs087_description/urdf/vs087_macro.urdf.xacro" />
+  <!--xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /-->
+  <xacro:include filename="$(find tutorial_commons)/urdf/table_denso.urdf.xacro" />
+  <!--xacro:include filename="$(find tutorial_commons)/urdf/kinect.xacro"/-->
+
+	<link name="world"/>
+
+	<!-- include platform -->
+	<xacro:table prefix="" parent="world">
+  	  <origin xyz="-0.24 -0.78 -0.75" rpy="0 0 0"/>
+	</xacro:table>
+
+  	<!-- arm -->
+	<xacro:vs087 prefix="" parent="world">
+ 	  <origin xyz="0 0 0" rpy="0 0 0" />
+    </xacro:vs087>
+
+	<!-- include camera -->
+	<!--xacro:sensor_kinect parent="world">
+	  <origin xyz="0.27 0.9 1.22" rpy="0 ${pi/2 - 20 * pi/180} ${-pi/2}"/>
+	</xacro:sensor_kinect-->
+	<link name="camera_link"/>
+	<joint name="camera_joint" type="fixed">
+		<parent link="world"/>
+		<child link="camera_link"/>
+		<origin xyz="0.27 0.9 1.23" rpy="0 ${pi/2 - 15 * pi/180} ${-pi/2}"/>
+	</joint>
+</robot>
