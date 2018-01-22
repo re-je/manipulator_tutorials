@@ -24,17 +24,18 @@ if __name__ == '__main__':
         robot = moveit_commander.RobotCommander()
         group = moveit_commander.MoveGroupCommander("arm")
         rospy.Subscriber("ar_pose_marker", AlvarMarkers, marker_cb)
+        print group.get_pose_reference_frame()
 
         pose_target = geometry_msgs.msg.Pose()
-        pose_target.position.x = 0.134
-        pose_target.position.y = 0.224
-        pose_target.position.z = 0.35
+        pose_target.position.x = 0.6
+        pose_target.position.y = 0.0
+        pose_target.position.z = 0.4
 
         quaternion = tf.transformations.quaternion_from_euler(0, math.pi / 2.0, 0)
-        pose_target.orientation.x = quaternion[0]
-        pose_target.orientation.y = quaternion[1]
-        pose_target.orientation.z = quaternion[2]
-        pose_target.orientation.w = quaternion[3]
+        pose_target.orientation.x = 0 #quaternion[0]
+        pose_target.orientation.y = 0 #quaternion[1]
+        pose_target.orientation.z = 0 #quaternion[2]
+        pose_target.orientation.w = 1 #quaternion[3]
 
         group.set_pose_target(pose_target)
 

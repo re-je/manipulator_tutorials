@@ -15,7 +15,7 @@
   <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(arg urdf_file)'"/>
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" textfile="$(find denso_robot_moveit_config)/config/$(arg robot_name)_config/$(arg robot_name).srdf" />
+  <param name="$(arg robot_description)_semantic" textfile="$(find denso_moveit_config_pkg)/config/$(arg robot_name).srdf" />
   
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
