@@ -18,7 +18,7 @@
   <include ns="/$(arg robot_name)" file="$(find denso_robot_core)/launch/denso_robot_core.launch.xml" />
 
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
-  <param name="robot_description" type="str" command="$(find xacro)/xacro --inorder '$(arg urdf_file)'"/>
+  <param name="robot_description" type="str" command="$(find xacro)/xacro --inorder '$(arg urdf_file)' sim:=false"/>
 
   <!-- Controller -->
   <include ns="/$(arg robot_name)" file="$(find denso_robot_descriptions)/$(arg robot_description)/$(arg robot_name).launch.xml" />

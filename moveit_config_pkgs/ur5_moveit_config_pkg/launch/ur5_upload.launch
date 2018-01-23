@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="limited" default="false"/>
-  
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ur_demo_description.urdf.xacro'" />
+  <arg name="sim" default="false"/>  
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ur_demo_description.urdf.xacro' sim:=$(arg sim)" />
 </launch>

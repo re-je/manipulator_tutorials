@@ -4,7 +4,9 @@
   <xacro:include filename="$(find denso_robot_descriptions)/vs087_description/urdf/vs087_macro.urdf.xacro" />
   <!--xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /-->
   <xacro:include filename="$(find tutorial_commons)/urdf/table_denso.urdf.xacro" />
-  <!--xacro:include filename="$(find tutorial_commons)/urdf/kinect.xacro"/-->
+  <xacro:include filename="$(find tutorial_commons)/urdf/kinect.xacro"/>
+  
+  <xacro:property name="sim" value="$(arg sim)"/>
 
 	<link name="world"/>
 
@@ -18,21 +20,26 @@
  	  <origin xyz="0 0 0" rpy="0 0 0" />
     </xacro:vs087>
 
-	<!-- include camera -->
-	<!--xacro:sensor_kinect parent="world">
-	  <origin xyz="0.27 0.9 1.22" rpy="0 ${pi/2 - 20 * pi/180} ${-pi/2}"/>
-	</xacro:sensor_kinect-->
-	<link name="camera_link"/>
-	<joint name="camera_joint" type="fixed">
-		<parent link="world"/>
-		<child link="camera_link"/>
-		<origin xyz="0.27 0.9 1.23" rpy="0 ${pi/2 - 15 * pi/180} ${-pi/2}"/>
-	</joint>
-
 	<link name="ee_link_mod"/>
 	<joint name="ee_joint_mod" type="fixed">
 		<parent link="link_6"/>
 		<child link="ee_link_mod"/>
 		<origin xyz=" 0 0 0" rpy="0 ${pi} 0"/>
 	</joint>
+
+	<xacro:if value="${sim}">
+	  <xacro:sensor_kinect parent="world">
+	    <origin xyz="0.27 0.9 1.23" rpy="0 ${pi/2 - 15 * pi/180} ${-pi/2}"/>
+	  </xacro:sensor_kinect>
+	</xacro:if>
+
+	<!-- include camera -->
+	<xacro:unless value="${sim}">
+	  <link name="camera_link"/>
+	  <joint name="camera_joint" type="fixed">
+		<parent link="world"/>
+		<child link="camera_link"/>
+		<origin xyz="0.27 0.9 1.23" rpy="0 ${pi/2 - 15 * pi/180} ${-pi/2}"/>
+	  </joint>
+	</xacro:unless>
 </robot>

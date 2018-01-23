@@ -1,6 +1,7 @@
 <launch>
   <!-- Override robot_name argument -->
   <arg name="robot_name" default="vs087" />
+  <arg name="paused" default="true"/>
 
   <!-- URDF file-->
   <arg name="urdf_file" default="$(find moveit_tutorial)/urdf/denso_demo_description.urdf.xacro" />
@@ -9,11 +10,12 @@
   <arg name="robot_description" value="$(arg robot_name)_description" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find denso_robot_gazebo)/worlds/denso_robot.world"/>
+    <arg name="world_name" value="$(find tutorial_commons)/worlds/denso_robot.world"/>
+	<arg name="paused" value="$(arg paused)"/>
   </include>
 
   <!-- Load the URDF, SRDF and other .yaml configuration files on the param server -->
-  <param name="robot_description" type="str" command="$(find xacro)/xacro --inorder '$(arg urdf_file)'"/>
+  <param name="robot_description" type="str" command="$(find xacro)/xacro --inorder '$(arg urdf_file)' sim:=true"/>
 
   <arg name="gui" default="True"/>
   <param name="use_gui" value="$(arg gui)"/>
