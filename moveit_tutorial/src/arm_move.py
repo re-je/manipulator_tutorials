@@ -57,7 +57,7 @@ if __name__ == '__main__':
 		pose_target = geometry_msgs.msg.Pose()
 		pose_target.position.x = 0.4
 		pose_target.position.y = 0.0
-		pose_target.position.z = 0.1
+		pose_target.position.z = 0.3
 		
 		quaternion = tf.transformations.quaternion_from_euler(0, math.pi / 2.0, 0)
 		pose_target.orientation.x = 0 #quaternion[0]
