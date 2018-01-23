@@ -23,5 +23,5 @@
     <arg name="prefix" value="$(arg prefix)" />
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ur_demo_description.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ur_demo_description.urdf.xacro' sim:=false" />
 </launch>
