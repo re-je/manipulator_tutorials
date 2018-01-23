@@ -16,6 +16,7 @@ tf_listener = 0
 #convert marker from camera frame to robot's base frame
 def handle_marker(marker_pose, target_frame):
 	global tf_listener
+	
 	marker_pose.pose.header.frame_id = marker_pose.header.frame_id 
 	
 	#transform pose from camera frame to base frame
@@ -74,14 +75,6 @@ if __name__ == '__main__':
 		pose_home.orientation.z = 0 
 		pose_home.orientation.w = 1 
 		
-		'''
-		group.set_pose_target(pose_home)
-		
-		#plan and execute using Moveit!
-		plan1 = group.plan()
-		rospy.sleep(2)
-		group.go(wait=True)
-		'''
 		plan_and_execute(pose_home)
 
 		#while loop to move the robot to the found AR marker
@@ -96,12 +89,7 @@ if __name__ == '__main__':
 				pose_target.position.z = pose_home.position.z
 				pose_target.orientation = pose_home.orientation
 				print pose_target
-				'''
-				group.set_pose_target(pose_target)
-				plan1 = group.plan()
-				rospy.sleep(2)
-				group.go(wait=True)
-				'''
+
 				plan_and_execute(pose_target)
 				rospy.sleep(1.)
 				plan_and_execute(pose_home)
