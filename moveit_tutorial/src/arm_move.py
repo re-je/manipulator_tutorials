@@ -12,6 +12,7 @@ from tf import TransformListener
 #declare global variables
 mPose = 0
 tf_listener = 0
+marker_id = -1
 
 #convert marker from camera frame to robot's base frame
 def handle_marker(marker_pose, target_frame):
@@ -39,7 +40,7 @@ def marker_cb(msg):
 	global mPose
 	for marker in msg.markers: 
 		#check marker.id on /ar_pose_marker topic
-		if marker.id == 2:
+		if marker.id == marker_id:
 			res_pose = handle_marker(marker, "/world")
 			mPose = res_pose
 
@@ -55,6 +56,9 @@ if __name__ == '__main__':
 	global tf_listener
 	rospy.init_node('ur_move', anonymous=True)
 	tf_listener = TransformListener()
+	
+	#get marker id passed through the command line
+	marker_id = int(sys.argv[1])
 	
 	try:
 		#initialize necessary objects
