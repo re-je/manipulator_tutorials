@@ -50,7 +50,13 @@ def plan_and_execute(pose):
 	#plan and execute using Moveit!
 	plan1 = group.plan()
 	rospy.sleep(2)
-	group.go(wait=True)
+	
+	print "Do you want to execute the plan [y]?"
+	user = raw_input()
+	if user == "y":
+		group.go(wait=True)
+		return True
+	return False
 
 if __name__ == '__main__':
 	global tf_listener
@@ -79,7 +85,8 @@ if __name__ == '__main__':
 		pose_home.orientation.z = 0 
 		pose_home.orientation.w = 1 
 		
-		plan_and_execute(pose_home)
+		if not plan_and_execute(pose_home):
+			sys.exit()
 
 		#while loop to move the robot to the found AR marker
 		pose_target = geometry_msgs.msg.Pose()
@@ -94,9 +101,11 @@ if __name__ == '__main__':
 				pose_target.orientation = pose_home.orientation
 				print pose_target
 
-				plan_and_execute(pose_target)
+				if not plan_and_execute(pose_target):
+					continue
 				rospy.sleep(1.)
-				plan_and_execute(pose_home)
+				if not plan_and_execute(pose_home):
+					sys.exit()
 				rospy.sleep(1.)
 			
 	except rospy.ROSInterruptException:

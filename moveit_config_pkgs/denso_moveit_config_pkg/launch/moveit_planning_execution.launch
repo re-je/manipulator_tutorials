@@ -37,13 +37,13 @@
     </include>
   </group-->  
 
-  <group unless="$(arg sim)">
+  <!--group unless="$(arg sim)">
     <include file="$(find denso_robot_control)/launch/denso_robot_control.launch">
       <arg name="robot_name" value="$(arg robot_name)" />
       <arg name="ip_address" value="$(arg ip_address)" />
       <arg name="urdf_file" value="$(arg urdf_file)"/>
     </include>
-  </group>  
+  </group-->  
 
   <include file="$(find denso_moveit_config_pkg)/launch/move_group.launch">
     <arg name="publish_monitored_planning_scene" value="true" />
