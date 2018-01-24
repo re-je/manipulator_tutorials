@@ -1,0 +1,5 @@
+<launch>
+  <node name="node_name" pkg="foo" type="bar" >
+    <param name="param_name" value="param_value">
+  </node>
+</launch>
