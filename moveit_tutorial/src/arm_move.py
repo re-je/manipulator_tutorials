@@ -70,9 +70,13 @@ if __name__ == '__main__':
 		#initialize necessary objects
 		moveit_commander.roscpp_initialize(sys.argv)
 		robot = moveit_commander.RobotCommander()
-		group = moveit_commander.MoveGroupCommander("arm")
-		rospy.Subscriber("ar_pose_marker", AlvarMarkers, marker_cb)
-		print group.get_pose_reference_frame()
+		
+		#Task 1: Add the group name in place of group_name below
+		#Refer to Rviz to get the group name
+		group = moveit_commander.MoveGroupCommander('group_name')
+		
+		#Task 2: add a subscriber to ar marker pose topic
+		#find out the message type of the topic from command line
 		
 		#set robot to home position 
 		pose_home = geometry_msgs.msg.Pose()
@@ -95,9 +99,9 @@ if __name__ == '__main__':
 			user = raw_input()
 			if not user: break
 			if user == "y" and mPose != 0:
-				pose_target.position.x = mPose.pose.position.x
-				pose_target.position.y = mPose.pose.position.y
-				pose_target.position.z = pose_home.position.z
+
+				#Task 3: Assign position values from mPose to pose_target
+				#HINT: Refer to function 'handle_marker' to get type of mPose
 				pose_target.orientation = pose_home.orientation
 				print pose_target
 
