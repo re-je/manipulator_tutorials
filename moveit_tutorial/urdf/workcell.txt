@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="ur5" >
+  <!-- setup empty world -->
+  <link name="world"/>
+</robot>
+
+<xacro:include filename="$(find tutorial_commons)/urdf/table_ur.urdf.xacro" />
+
+  <!-- include platform -->
+  <xacro:table prefix="" parent="world">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0" />
+  </xacro:table>
+
+<xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" /> 
+
+  <xacro:ur5_robot prefix="" joint_limited="true"/>
+
+  <joint name="world_joint" type="fixed">
+    <parent link="platform" />
+    <child link = "base_link" />
+    <origin xyz="${table_width/2} ${table_length/2} ${table_height}" rpy="0 0 0"/>
+  </joint>
