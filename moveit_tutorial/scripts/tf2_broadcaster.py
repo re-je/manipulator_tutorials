@@ -43,7 +43,7 @@ def handle_turtle_pose(msg):
     
     # Task 1: Use the correct form of TransformStamped msg 't'
     # Hint find the message format of geometry_msgs/TransformStamped from command line
-    #t_x = q[0]
+    t.transform.rotation.x = q[0]
     #t_y = q[1]
     #t_z = q[2]
     #t_w = q[3]
@@ -53,5 +53,6 @@ rospy.Subscriber("%s/pose" % turtle_name, Pose, handle_turtle_pose)
 while not rospy.is_shutdown():
     # Task 2: Use the send transform function to broadcast 't'
     # HINT: Refer link to use the correct function for TransformBroadcaster 'br'
-    # http://docs.ros.org/kinetic/api/tf/html/c++/classtf_1_1TransformBroadcaster.html    
+    # http://docs.ros.org/kinetic/api/tf/html/c++/classtf_1_1TransformBroadcaster.html 
+	br.sendTransform(t)   
     r.sleep()
