@@ -7,6 +7,7 @@
   <xacro:include filename="$(find tutorial_commons)/urdf/table_ur.urdf.xacro" />
   <xacro:include filename="$(find tutorial_commons)/urdf/kinect.xacro"/>
 
+  <xacro:arg name="sim" default="true"/>
   <xacro:property name="sim" value="$(arg sim)"/>
 
 	<!-- setup empty world -->
@@ -45,7 +46,7 @@
 	  <joint name="camera_joint" type="fixed">
 		<parent link="world"/>
 		<child link="camera_link"/>
-		<origin xyz="0.14 -0.76 1.22" rpy="0 ${pi/2 - 20 * pi/180} ${pi/2}"/>
+		<origin xyz="0.08 -0.78 1.28" rpy="0 ${pi/2 - 20 * pi/180} ${pi/2}"/>
 	  </joint>
 	</xacro:unless>
 </robot>

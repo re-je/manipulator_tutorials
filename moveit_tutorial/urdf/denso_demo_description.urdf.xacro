@@ -6,6 +6,7 @@
   <xacro:include filename="$(find tutorial_commons)/urdf/table_denso.urdf.xacro" />
   <xacro:include filename="$(find tutorial_commons)/urdf/kinect.xacro"/>
   
+	<xacro:arg name="sim" default="true"/>
   <xacro:property name="sim" value="$(arg sim)"/>
 
 	<link name="world"/>
