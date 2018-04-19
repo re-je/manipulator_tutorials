@@ -77,6 +77,7 @@ if __name__ == '__main__':
 		
 		#Task 2: add a subscriber to ar marker pose topic
 		#find out the message type of the topic from command line
+		rospy.Subscriber("topic_name", msg_type, marker_cb)
 		
 		#set robot to home position 
 		pose_home = geometry_msgs.msg.Pose()
@@ -102,6 +103,9 @@ if __name__ == '__main__':
 
 				#Task 3: Assign position values from mPose to pose_target
 				#HINT: Refer to function 'handle_marker' to get type of mPose
+				pose_target.position.x = 
+				pose_target.position.y = 
+				pose_target.position.z = pose_home.position.z
 				pose_target.orientation = pose_home.orientation
 				print pose_target
 
