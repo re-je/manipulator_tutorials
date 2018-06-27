@@ -2,5 +2,5 @@
 <launch>
   <arg name="limited" default="false"/>
   
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ar_demo_description.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find moveit_tutorial)/urdf/ur_demo_description.urdf.xacro'" />
 </launch>
