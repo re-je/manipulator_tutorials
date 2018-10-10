@@ -3,14 +3,12 @@
 import sys
 import rospy
 import moveit_commander
-import tf2_ros
-import tf2_geometry_msgs
+import tf
 from geometry_msgs.msg import Pose
 from ar_track_alvar_msgs.msg import AlvarMarkers
 
-
 #declare global variables
-world_frame = rospy.get_param('~/world_frame', "/world")
+world_frame = rospy.get_param('~/world_frame', "world")
 #Task 1: Add the correct default group name in place of "???" below
 #        Refer to Rviz to get the group name
 move_group_name = "???"
@@ -19,15 +17,14 @@ home_position = rospy.get_param('~/home_position', [.4, .0, .3])
 home_orientation = rospy.get_param('~/home_orientation', [.0, .0, .0, .1])
 marker_pose = None
 
-
 #convert marker from camera frame to robot's base frame
 def transform_pose(pose, target_frame):
-	transform = tf_buffer.lookup_transform(target_frame,
-                                       pose.header.frame_id, #source frame
-                                       rospy.Time(0), #at first available time
-                                       rospy.Duration(1.0)) #wait up to 1 second
-	return tf2_geometry_msgs.do_transform_pose(pose, transform).pose
-
+	if tf_listener.canTransform(target_frame, pose.header.frame_id, rospy.Time(0)):
+		transform = tf_listener.transformPose(target_frame, pose)
+		return transform.pose
+	else:
+		rospy.logerr("Transform not successfull.")
+		return False
 
 #callback function to receive marker messages
 def marker_cb(msg):
@@ -35,8 +32,9 @@ def marker_cb(msg):
 	for marker in msg.markers:
 		if marker.id == marker_id: #check marker.id on /ar_pose_marker topic
 			marker.pose.header.frame_id = marker.header.frame_id
-			marker_pose = transform_pose(marker.pose, world_frame)
-
+			pose_local = transform_pose(marker.pose, world_frame)
+			if pose_local:
+				marker_pose = pose_local
 
 #set Pose message through lists
 def set_pose(xyz = [0, 0, 0], q = [0, 0, 0, 1]):
@@ -45,11 +43,9 @@ def set_pose(xyz = [0, 0, 0], q = [0, 0, 0, 1]):
 	pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w = q
 	return pose
 
-
 #confirm if plan should be executed
 def plan_accepted():
 	return raw_input("Do you want to execute the plan [y] or replan [n]? ") == "y"
-
 
 #plan and execute to given pose; If plan is not confirmed plan again
 def plan_and_execute(group, pose):
@@ -59,7 +55,6 @@ def plan_and_execute(group, pose):
 		group.execute(plan1, wait=True)
 	else:
 		plan_and_execute(group, pose)
-
 
 #main function of application
 def main():
@@ -80,11 +75,9 @@ def main():
 		else:
 			rospy.logwarn("No marker detected.")
 
-
 if __name__ == '__main__':
 	rospy.init_node('move_to_marker', anonymous=True)
-	tf_buffer = tf2_ros.Buffer(rospy.Duration(1200.0)) #tf buffer length
-	tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+	tf_listener = tf.TransformListener()
 	#Task 2: Modify the following subscriber to the correct ar marker pose topic &
 	#        the correct message type. HINT: Check the topic from the command line
 	rospy.Subscriber("topic_name?", msg_type?, marker_cb)
