@@ -1,0 +1,6 @@
+Pulse Factor J1 = 1024.000000
+Pulse Factor J2 = -1213.629630
+Pulse Factor J3 = 910.222222
+Pulse Factor J4 = -853.333333
+Pulse Factor J5 = 728.177778
+Pulse Factor J6 = -464.863492
