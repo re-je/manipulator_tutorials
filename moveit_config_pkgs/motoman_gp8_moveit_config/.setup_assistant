@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: moveit_tutorial
+    relative_path: urdf/workcell.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/gp8.srdf
+  CONFIG:
+    author_name: Gary Edwards
+    author_email: gary@re.je
+    generated_timestamp: 1559116849
