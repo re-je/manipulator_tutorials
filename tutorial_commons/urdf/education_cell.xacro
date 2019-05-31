@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="education_cell">
-    <xacro:macro name="education_cell" params="prefix parent *origin">
-        <joint name="${prefix}platform_origin_joint" type="fixed">
-            <xacro:insert_block name="origin" />
-            <parent link="${parent}" />
-            <child link="${prefix}platform" />
-        </joint>
+    <xacro:macro name="education_cell" params="prefix">
         <link name="${prefix}platform">
             <visual>
                 <geometry>
